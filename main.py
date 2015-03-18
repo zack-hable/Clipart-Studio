@@ -1,5 +1,5 @@
 #
-# Clipart Studio 0.5.2
+# Clipart Studio 0.5.3
 # Zack Hable
 # Python 3.4 & PyGame 1.9.2 Alpha
 #
@@ -44,7 +44,7 @@ def clear():
     displaynum = -1
     pygame.display.flip()
 
-title = "Clipart Studio V0.5.2"
+title = "Clipart Studio V0.5.3"
 
 pygame.init()  # initialize pygame
 
@@ -181,7 +181,7 @@ while True:
                         save()
                     elif key == "w":
                         clear()
-                    break
+                break
     elif ev.type == pygame.MOUSEBUTTONDOWN:  # if user pressed their mouse
         mosx = pygame.mouse.get_pos()[0]  # getting mouse x/y coordinates
         mosy = pygame.mouse.get_pos()[1]  # another very important note, pygame works up -> down, so (1,1) is in the top left
