@@ -1,5 +1,5 @@
 #
-# Clipart Studio 0.5.1
+# Clipart Studio 0.5.2
 # Zack Hable
 # Python 3.4 & PyGame 1.9.2 Alpha
 #
@@ -44,12 +44,14 @@ def clear():
     displaynum = -1
     pygame.display.flip()
 
+title = "Clipart Studio V0.5.2"
+
 pygame.init()  # initialize pygame
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = str('0,19')  # set pygame window to fill entire screen, this should work on any pc
 size = [pygame.display.Info().current_w, pygame.display.Info().current_h]  # set screen resolution, this is in pixels
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
-pygame.display.set_caption("Paint V0.5 | Zack Hable")  # screen window title
+pygame.display.set_caption(title)  # screen window title
 
 work = pygame.Surface((pygame.display.Info().current_w-100, pygame.display.Info().current_h))  # this is the user work area
 work = work.convert()
@@ -363,20 +365,18 @@ while True:
     elif ev.type == pygame.VIDEORESIZE:  # if user changes the window size
         if ev.w > 800 and ev.h > 600:
             size = ev.size
-            work = pygame.Surface((ev.w-100, ev.h))  # this is the user work area
-            work = work.convert()
-            work.fill((255, 255, 255))  # set work area to white
-            for i in range(0, displaynum+1):
-                print("DISPLAY RESTORED:", i)
-                temp[i] = pygame.transform.scale(temp[i], (ev.w-100, ev.h))
-                work.blit(temp[i], (0, 0))
-            screen.blit(work, (100, 0))
-            # IMPORTANT: I need to resize the 'menu' window here, support for work area is complete
-            pygame.display.flip()
-            print("RESIZED!")
-        else:  # if user tries to go below our needed resolution we go back to last known good resolution
-            screen = pygame.display.set_mode(size, pygame.RESIZABLE)
-            pygame.display.set_caption("Paint V0.5 | Zack Hable")  # screen window title
-            screen.blit(menu, (0, 0))
-            screen.blit(work, (100, 0))
-            pygame.display.flip()
+        else:
+            size = [800, 600]
+        work = pygame.Surface((ev.w-100, ev.h))  # this is the user work area
+        work = work.convert()
+        work.fill((255, 255, 255))  # set work area to white
+        for i in range(0, displaynum+1):
+            print("DISPLAY RESTORED:", i)
+            temp[i] = pygame.transform.scale(temp[i], (ev.w-100, ev.h))
+            work.blit(temp[i], (0, 0))
+        screen = pygame.display.set_mode(size, pygame.RESIZABLE)
+        pygame.display.set_caption(title)  # screen window title
+        screen.blit(menu, (0, 0))
+        screen.blit(work, (100, 0))  # IMPORTANT: I need to resize the 'menu' window here, support for work area is complete
+        pygame.display.flip()
+        print("RESIZED!")
